@@ -1,4 +1,6 @@
 #include <iostream>
+/* Linked list program by Pedro Mercado | Udemy Course.
+*/
 
 using namespace std;
 //Class node
@@ -23,6 +25,7 @@ class LinkedList{
         int size;
         //Linked List  constructor
     public:
+        //Class constructor
         LinkedList(){
             //Initializes the header and tail node as NULL, and the size of the Linked list as 0.
             header = NULL;
@@ -101,8 +104,11 @@ class LinkedList{
     void removeFirstElementLinkedList(){
 
         if(header != NULL){
+            //declares a temp node that points to what header is pointing
             Node *temp = header;
+            //Header points to the next node that was pointing before
             header = header ->next;
+            //deletes what temp is pointing, the first node.
             delete temp;
             size--;
         }
@@ -117,15 +123,22 @@ class LinkedList{
 
         //Case 3: More than one node within the list
         else if(header != NULL){
+            //declares a current node that points to what header is pointing
             Node *current = header;
+            //declares a node called previous
             Node *previous;
-
-         while(current->next != NULL){
-            previous = current;
-            current = current->next;
+            //while current is not pointing to null
+            while(current->next != NULL){
+                    //previous will point to what current is pointing
+                previous = current;
+                    //current will point to what its next node is pointing
+                current = current->next;
          }
+        //the tail will point to what previous is pointing
         tail = previous;
+        //the node contained in previous will point to null
         previous->next = NULL;
+        //delete current node
         delete current;
         size--;
 
@@ -151,13 +164,20 @@ class LinkedList{
 
         //Case 4: Valid element between the first and the last
         else if ( header != NULL){
+            //declares a node called previous
             Node *previous;
+            //declares a node called current that is pointing to the node that header is pointing
             Node *current = header;
+            //the cycle will be executed from the first node to the node the user wants to delete
             for(int i = 1; i < position; i++){
+                //previous will point to the node that current is pointing
                 previous = current;
+                //current will acquire its next node
                 current = current->next;
             }
+            //previous will point to the node that current is pointing
             previous->next = current-> next;
+            //delete current node
             delete current;
         }
         size--;
@@ -181,15 +201,23 @@ class LinkedList{
 
         //Case 4: If the user wants to insert a node in a position between the first and last node.
         else{
+            //creates a new node by the constructor and assigns the data inserted by the user.
             Node *node = new Node(data);
+            //declares a new node called previous
             Node *previous;
+            //declares a new node called current that points to what header is pointing
             Node *current = header;
 
+            //the cycle will be executed from the first node to the position that the user wants to insert a node in.
             for(int i = 1; i < position; i++){
+                //previous will store the node that current is storing
                 previous = current;
+                //current will store its next node
                 current = current -> next;
             }
+            //previous will point to the node the user created
             previous->next = node;
+            //the new node will point to current
             node->next = current;
         }
         size++;
